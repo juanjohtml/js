@@ -1,31 +1,67 @@
-//este proyecto es un simulador de prestamos
-//aca se ingresan los datos por prompt
-let cliente = prompt("ingrese su nombre por favor")
-let ingreso = prompt(`Hola ${cliente}, para ingresar a la calculadora de prestamos presione enter, para salir presione S` )
-if(ingreso==""){
-    
-let monto = parseInt(prompt("ingrese el monto al que quiere acceder"));
-let cuotas = parseInt(prompt("ingrese la cantidad de cuotas: \n 3: 3 pagos con 5% de recargo. \n 6: 6 pagos con 10% de recargo. \n 12: 12 pagos con 20% de recargo"));
-
-
-//aca validamos que la cantidad de cuotas sea una de las 3 opciones indicadas
-    if(cuotas===3){
-        let resultado = (monto+monto*0.05)/3;
-        alert(`estimado ${cliente} su prestamo de $${monto} debera ser abonado en ${cuotas} pagos de ${resultado}`)
-
-    }else if(cuotas ===6){
-        let resultado = (monto+monto*0.1)/6;
-        alert(`estimado ${cliente} su prestamo de $${monto} debera ser abonado en ${cuotas} pagos de ${resultado}`)
-    }else if (cuotas ===12){
-        let resultado = (monto+monto*0.2)/12;
-        alert(`estimado ${cliente} su prestamo de $${monto} debera ser abonado en ${cuotas} pagos de ${resultado}`)
-    }
-
-    else{
-        alert("los valores de cuota solo pueden ser 3, 6 o 12");
-    }
-
-}else{
-    alert("hasta luego!")
+//simulador de creditos
+//pedimos que ingrese al sistema
+let intro = prompt(
+  "Bienvenido!\n presione ENTER para acceder a un prestamo.\n presione 'S' para salir."
+);
+//bucle que valida la entrada
+while (intro == "") {
+  //ingreso de monto y cuotas
+  let monto = parseInt(prompt("ingrese el monto al que desea acceder"));
+  let cuotas = parseInt(
+    prompt(
+      "ingrese el numero de cuotas\n hasta 3 pagos %30 de interes. \n hasta 6 pagos %50 de interes. \n hasta 12 pagos %80 de interes.\n mas de 12 pagos %100 de interes."
+    )
+  );
+  //funcion para dividir el monto en las cuotas
+  function calcular(monto, cuotas) {
+    return monto / cuotas;
+  }
+  //condicional que verifica el numero de cuotas y agrega los porcentajes de intereses dando el resultado
+  if (cuotas <= 3) {
+    let montoInteres = monto + monto * 0.3;
+    let montoFinal = calcular(montoInteres, cuotas);
+    alert(
+      `Su prestamo de $${monto} fue aprobado y debera abonar ${cuotas} pagos de $${montoFinal.toFixed(
+        2
+      )}`
+    );
+  } else if (cuotas > 3 && cuotas <= 6) {
+    let montoInteres = monto + monto * 0.5;
+    let montoFinal = calcular(montoInteres, cuotas);
+    alert(
+      `Su prestamo de $${monto} fue aprobado y debera abonar ${cuotas} pagos de $${montoFinal.toFixed(
+        2
+      )}`
+    );
+  } else if (cuotas > 6 && cuotas <= 12) {
+    let montoInteres = monto + monto * 0.8;
+    let montoFinal = calcular(montoInteres, cuotas);
+    alert(
+      `Su prestamo de $${monto} fue aprobado y debera abonar ${cuotas} pagos de $${montoFinal.toFixed(
+        2
+      )}`
+    );
+  } else if (cuotas > 12) {
+    let montoInteres = monto + monto;
+    let montoFinal = calcular(montoInteres, cuotas);
+    alert(
+      `Su prestamo de $${monto} fue aprobado y debera abonar ${cuotas} pagos de $${montoFinal.toFixed(
+        2
+      )}`
+    );
+  } else {
+    alert("debe ingresar un numero de cuotas valido para continuar");
+  }
+  //finalizador o continuacion del bucle
+  intro = prompt(
+    "Desea calcular un nuevo prestamo?\n presione ENTER para acceder a un prestamo.\n presione 'S' para salir."
+  );
 }
 
+/*
+  pedir monto
+  pedir cuotas
+  sumar porcentaje de intereses
+  calcular cuotas
+  devolver mensaje con cuotas y monto
+  */
